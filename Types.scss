@@ -1,0 +1,145 @@
+
+//--> Nesting <--                                                   
+
+nav{
+    ul{
+        margin:0;
+        padding:0;
+    }
+
+    li{ 
+         margin:0;
+         padding:0;
+    }
+
+    a{
+        display:block;
+        padding:6px 12px;
+        text-decoration: none;
+    }
+}
+
+
+//--> MODULES <--
+
+/*we have two files in here
+1) _base.scss
+2) _style.scss
+
+//we can inherit the _base properties into _style
+
+*/
+
+//_base.scss
+
+$front-stack: Helvetica, san-serif;
+$primary-color: #333;
+
+body{
+    font: 100% $font-stack;
+    color: $primary-color;
+}
+
+
+//_style.scss
+
+@use 'base';
+
+.header{
+    background-color: base.$primary-color;
+    color:white;
+}
+
+
+//--> MIXINS AND FUNCTIONS <--
+//It takes in a parameter, just like a regular functions and passing it into the transform property.
+
+@mixin transform($property){
+    -webkit-transform:$property;
+    -ms-transform: $property;
+    transform: $property;
+}
+
+.box{@include transform(rotate(30deg)); }
+
+
+//--> INHERITANCE <--
+//Inherting from base styles and extending to the other classes
+
+%message-shared{
+    border: 1px solid darkblue;
+    padding:25px;
+    color:green;
+}
+
+
+.message{
+    @extend %message-shared;
+}
+
+.success{
+    @extend %message-shared;
+    border-color:green;
+}
+
+.error{
+    @extend %message-shared;
+    border-color:pink;
+}
+
+.warning{
+    @extend %message-shared;
+    border-color:red;
+}
+
+//--> OPERATOR <--
+//Here you can do the basic math operations inside the Sassy css
+ 
+.article{
+    float:right;
+    width: 200px / 950px * 100% 
+}
+
+
+//--> CONDITIONALS <--
+//Using if else operators
+
+//Example1
+@mixin avatar($size, $circle: false) {
+     width:$size;
+     height:$size;
+
+     @if $circle{
+        border-radius: $size / 2;
+     }
+}
+
+.square-av{
+    @include avtar(100px, $circle: true);
+}
+
+//Example2
+
+@use "sass:math";
+
+@mixin triangle($size, $color, $direction){
+ 
+   height:10px;
+   width:10px;
+   border-color: transparent;
+   border-style:solid;
+   border-width: math.div($size, 2);
+
+    @if $direction == up{
+        border-bottom-color: $color;
+    } @else if $direction== right {
+        border-bottom-color: $color;
+    }@else if $direction == down{
+        border-bottom-color: $color;
+    }@else if $direction ==left{
+        border-bottom-color: $color;
+    }@else {
+        @error "Unknown Direction #{$direction}.";
+    }
+
+}
