@@ -7,7 +7,11 @@
      Easier to read and write than CSS custom properties </li>
 
 </ul>
-<h2>
-   Installing Sass via npm
-</h2>
-<h3>npm i node-sass</h3>
+<h3>NPM Install Sass</h3>
+
+`npm install -g sass`
+<h3>Useful Resources</h3>
+
+Documentation for [SASS](https://sass-lang.com/)
+
+Practise Sass, by converting Sass into css [Sass-into-css](https://www.sassmeister.com/)
